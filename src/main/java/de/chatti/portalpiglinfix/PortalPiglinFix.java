@@ -10,8 +10,8 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Keeps portal-based gold farms working while rejecting portal-spawned
- * zombified piglins whose spawn position is outside a Nether portal block.
+ * Keeps portal-based gold farms working while rejecting portal and
+ * reinforcement-spawned zombified piglins outside Nether portal blocks.
  */
 public final class PortalPiglinFix extends JavaPlugin implements Listener {
 
@@ -29,24 +29,20 @@ public final class PortalPiglinFix extends JavaPlugin implements Listener {
 
         Location location = event.getLocation();
         Material block = location.getBlock().getType();
-        if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NETHER_PORTAL) {
-            getLogger().info("Observed zombified piglin spawn with reason "
-                    + event.getSpawnReason() + " at " + formatLocation(location)
-                    + " (block: " + block + "); left unchanged.");
+        CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
+        if (reason != CreatureSpawnEvent.SpawnReason.NETHER_PORTAL
+                && reason != CreatureSpawnEvent.SpawnReason.REINFORCEMENTS) {
             return;
         }
 
-        // Keep the gold-farm mechanic only when the spawn location is actually
-        // inside a portal block.
         if (block == Material.NETHER_PORTAL) {
-            getLogger().info("Allowed portal-spawned zombified piglin at "
-                    + formatLocation(location) + " (block: " + block + ").");
             return;
         }
 
         event.setCancelled(true);
-        getLogger().info("Blocked portal-spawned zombified piglin in fallback check at "
-                + formatLocation(location) + " (block: " + block + ").");
+        getLogger().info("Blocked zombified piglin spawn with reason " + reason
+                + " outside a Nether portal at " + formatLocation(location)
+                + " (block: " + block + ").");
     }
 
     private String formatLocation(Location location) {
