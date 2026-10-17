@@ -34,4 +34,4 @@ jobs:
         with:
           name: PortalPiglinFix ${{ github.ref_name }}
           generate_release_notes: true
-          files: build/libs/PortalPiglinFix-0.1.1.jar
+          files: build/libs/PortalPiglinFix-0.1.2.jar
