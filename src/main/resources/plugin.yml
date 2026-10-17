@@ -1,5 +1,5 @@
 name: PortalPiglinFix
-version: 0.1.0
+version: 0.1.1
 main: de.chatti.portalpiglinfix.PortalPiglinFix
 api-version: '26.3'
 description: Allows portal-based zombified piglin spawns inside portal blocks only.
