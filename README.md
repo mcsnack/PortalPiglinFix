@@ -1,6 +1,6 @@
 # PortalPiglinFix
 
-**Paper plugin for Minecraft Java 26.3** · **Release:** `v0.1.1`
+**Paper plugin for Minecraft Java 26.3** · **Release:** `v0.1.2`
 
 PortalPiglinFix keeps portal-based gold farms working while rejecting zombified piglin portal-spawn attempts whose spawn position is outside a Nether portal block.
 
@@ -9,9 +9,9 @@ PortalPiglinFix keeps portal-based gold farms working while rejecting zombified 
 ### What it does
 
 - Allows zombified piglins spawned with the `NETHER_PORTAL` reason when their feet are inside a `NETHER_PORTAL` block.
-- Cancels those portal-spawn events when the spawn block is outside the portal.
+- Cancels portal and reinforcement spawns when the spawn block is outside a Nether portal.
 - Leaves natural spawns, lightning conversions, piglin zombification, and unrelated entities alone.
-- Logs each zombified piglin's spawn reason, location, and block to the server console.
+- Logs only blocked spawns to the server console.
 
 The plugin checks the spawn reason and the block at the entity's spawn position. It does not remove piglins that already exist.
 
@@ -22,7 +22,7 @@ The plugin checks the spawn reason and the block at the entity's spawn position.
 
 ### Install
 
-1. Download `PortalPiglinFix-0.1.1.jar` from the [latest release](https://github.com/mcsnack/PortalPiglinFix/releases/latest).
+1. Download `PortalPiglinFix-0.1.2.jar` from the [latest release](https://github.com/mcsnack/PortalPiglinFix/releases/latest).
 2. Stop the Paper server.
 3. Put the JAR in the server's `plugins` folder.
 4. Start the server.
@@ -37,7 +37,7 @@ With Java 25+ and Gradle installed, run:
 gradle build
 ```
 
-The JAR is written to `build/libs/PortalPiglinFix-0.1.1.jar`.
+The JAR is written to `build/libs/PortalPiglinFix-0.1.2.jar`.
 
 ### Limitations
 
@@ -48,9 +48,9 @@ This first release has no commands or configuration. It applies globally to port
 ### Was das Plugin macht
 
 - Zombifizierte Piglins, die mit dem Spawn-Grund `NETHER_PORTAL` entstehen, bleiben erlaubt, wenn ihre Füße in einem `NETHER_PORTAL`-Block stehen.
-- Portal-Spawns außerhalb eines Netherportalblocks werden abgebrochen.
+- Portal- und Verstärkungs-Spawns außerhalb eines Netherportalblocks werden abgebrochen.
 - Natürliche Spawns, Umwandlungen durch Blitze, die Zombifizierung von Piglins und andere Kreaturen bleiben unbeeinflusst.
-- Spawn-Grund, Position und Block jedes Zombifizierten Piglins werden in der Serverkonsole protokolliert.
+- Nur blockierte Spawns werden in der Serverkonsole protokolliert.
 
 Das Plugin prüft den Spawn-Grund und den Block an der Spawnposition. Bereits vorhandene Piglins werden nicht entfernt.
 
@@ -61,7 +61,7 @@ Das Plugin prüft den Spawn-Grund und den Block an der Spawnposition. Bereits vo
 
 ### Installation
 
-1. `PortalPiglinFix-0.1.1.jar` aus dem [neuesten Release](https://github.com/mcsnack/PortalPiglinFix/releases/latest) herunterladen.
+1. `PortalPiglinFix-0.1.2.jar` aus dem [neuesten Release](https://github.com/mcsnack/PortalPiglinFix/releases/latest) herunterladen.
 2. Den Paper-Server stoppen.
 3. Die JAR-Datei in den Serverordner `plugins` legen.
 4. Den Server starten.
@@ -76,7 +76,7 @@ Mit Java 25+ und installiertem Gradle diesen Befehl ausführen:
 gradle build
 ```
 
-Die JAR-Datei liegt danach unter `build/libs/PortalPiglinFix-0.1.1.jar`.
+Die JAR-Datei liegt danach unter `build/libs/PortalPiglinFix-0.1.2.jar`.
 
 ### Einschränkungen
 
