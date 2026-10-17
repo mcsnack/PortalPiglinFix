@@ -1,6 +1,8 @@
 package de.chatti.portalpiglinfix;
 
 import org.bukkit.Material;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,20 +23,36 @@ public final class PortalPiglinFix extends JavaPlugin implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (event.getEntityType() != org.bukkit.entity.EntityType.ZOMBIFIED_PIGLIN) {
+        if (event.getEntityType() != EntityType.ZOMBIFIED_PIGLIN) {
             return;
         }
 
+        Location location = event.getLocation();
+        Material block = location.getBlock().getType();
         if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NETHER_PORTAL) {
+            getLogger().info("Observed zombified piglin spawn with reason "
+                    + event.getSpawnReason() + " at " + formatLocation(location)
+                    + " (block: " + block + "); left unchanged.");
             return;
         }
 
-        // The spawn location is the entity's feet position. Keep the gold-farm
-        // mechanic only when those feet are actually inside a portal block.
-        if (event.getLocation().getBlock().getType() == Material.NETHER_PORTAL) {
+        // Keep the gold-farm mechanic only when the spawn location is actually
+        // inside a portal block.
+        if (block == Material.NETHER_PORTAL) {
+            getLogger().info("Allowed portal-spawned zombified piglin at "
+                    + formatLocation(location) + " (block: " + block + ").");
             return;
         }
 
         event.setCancelled(true);
+        getLogger().info("Blocked portal-spawned zombified piglin in fallback check at "
+                + formatLocation(location) + " (block: " + block + ").");
+    }
+
+    private String formatLocation(Location location) {
+        return location.getWorld().getName() + " "
+                + location.getBlockX() + " "
+                + location.getBlockY() + " "
+                + location.getBlockZ();
     }
 }
