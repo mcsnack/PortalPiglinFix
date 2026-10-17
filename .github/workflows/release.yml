@@ -1,0 +1,37 @@
+name: Build and publish release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: 'current'
+
+      - name: Build plugin
+        run: gradle build --no-daemon
+
+      - name: Create GitHub release and upload plugin
+        uses: softprops/action-gh-release@v3
+        with:
+          name: PortalPiglinFix v0.1
+          generate_release_notes: true
+          files: build/libs/PortalPiglinFix-0.1.0.jar
